@@ -14,8 +14,8 @@ app.post('/initiate', async (req, res) => {
     // Get authorization 
     const tokenResponse = await axios.post('https://api-omnichannel-uat.azure-api.net/v2.1/oauth/token', {
       grant_type: 'client_credentials',
-      client_id: '',
-      client_secret: '',
+      client_id: process.env.ClientId,
+      client_secret: process.env.ClientSecret,
     });
     const authToken = tokenResponse.data.access_token;
 

@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.post('/initiate', async (req, res) => {
+app.post('/initiateSTKPush', async (req, res) => {
   try {
     
     const userId = Math.floor(Math.random() * 1000000);
@@ -35,9 +35,13 @@ app.post('/initiate', async (req, res) => {
           }
      );
 
-    res.json(response.statusmessage);
+    res.json({ referenceNumber: `REF${userId}`,
+               statusMessage: response.statusmessage);
+              
   } catch (error) {
+      
     console.error(error);
+      
     res.status(500).json({ error: 'Internal server error' });
   }
 });

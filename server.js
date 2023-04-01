@@ -23,6 +23,11 @@ app.post('/initiate', async (req, res) => {
     const response = await axios.post('https://api-omnichannel-uat.azure-api.net/v1/stkussdpush/stk/initiate', {
       phoneNumber: req.body.phone_number,
       reference: `REF${userId}`,
+      amount: req.body.amount,
+      telco: req.body.telco,
+      countryCode: req.body.code,
+      callBackUrl: 'https://domain.com/callback',
+      errorCallBackUrl: 'https://domain.com/callback/error'
         }, {
             headers: {
               Authorization: `Bearer ${authToken}`

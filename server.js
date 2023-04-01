@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 
@@ -16,7 +17,12 @@ app.post('/initiateSTKPush', async (req, res) => {
       grant_type: 'client_credentials',
       client_id: process.env.ClientId,
       client_secret: process.env.ClientSecret,
-    });
+    },
+    {
+      headers:{
+          'Content-Type': 'application/x-www-form-urlencoded',
+      }
+  });
     const authToken = tokenResponse.data.access_token;
 
     // Initiate STK push

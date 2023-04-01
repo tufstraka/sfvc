@@ -18,13 +18,17 @@ app.post('/initiate', async (req, res) => {
       client_secret: '',
       scope: 'https://api-omnichannel-uat.azure-api.net/.default'
     });
-    //const authToken = tokenResponse.data.access_token;
+    const authToken = tokenResponse.data.access_token;
 
     // Initiate STK push
     const response = await axios.post('https://api-omnichannel-uat.azure-api.net/v1/stkussdpush/stk/initiate', {
       phoneNumber: req.body.phone_number,
       reference: `REF${userId}`,
-        }, 
+        }, {
+            headers: {
+              Authorization: `Bearer ${authToken}`
+            }
+          }
      );
 
     res.json(response.statusmessage);

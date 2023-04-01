@@ -16,7 +16,6 @@ app.post('/initiate', async (req, res) => {
       grant_type: 'client_credentials',
       client_id: '',
       client_secret: '',
-      scope: 'https://api-omnichannel-uat.azure-api.net/.default'
     });
     const authToken = tokenResponse.data.access_token;
 

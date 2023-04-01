@@ -36,7 +36,7 @@ app.post('/initiateSTKPush', async (req, res) => {
      );
 
     res.json({ referenceNumber: `REF${userId}`,
-               statusMessage: response.statusmessage);
+               statusMessage: response.statusmessage });
               
   } catch (error) {
       

@@ -1,5 +1,5 @@
 {
-  "name": "EquitySTKpush",
+  "name": "equitystkpush",
   "version": "1.0.0",
   "description": "Equity STK Push API",
   "main": "server.js",

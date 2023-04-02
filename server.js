@@ -36,6 +36,9 @@ app.post("/initiateSTKPush", async (req, res) => {
     );
     const authToken = tokenResponse.data.access_token;
 
+    console.log(req.body.phone);
+    console.log(req.body.totalAmount);
+
     // Initiate STK push
     const response = await axios.post(
       "https://api-omnichannel-uat.azure-api.net/v1/stkussdpush/stk/initiate",
@@ -51,7 +54,7 @@ app.post("/initiateSTKPush", async (req, res) => {
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );

@@ -40,13 +40,13 @@ app.post("/initiateSTKPush", async (req, res) => {
     const response = await axios.post(
       "https://api-omnichannel-uat.azure-api.net/v1/stkussdpush/stk/initiate",
       {
-        phoneNumber: req.body.phone_number,
+        phoneNumber: req.body.phone,
         reference: `REF${userId}`,
-        amount: req.body.amount,
-        telco: req.body.telco,
-        countryCode: req.body.code,
+        amount: req.body.totalAmount,
+        telco: "SAF",
+        countryCode: "KE",
         callBackUrl: "https://www.lnmb-run.org/payment/callback",
-        errorCallBackUrl: "https://domain.com/callback/error",
+        errorCallBackUrl: "https://www.lnmb-run.org/payment/error-callback",
       },
       {
         headers: {

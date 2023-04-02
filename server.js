@@ -13,8 +13,8 @@ const limiter = rateLimit({
   max: 10, // limit each IP to 10 requests per 10 minutes
   message: "Too many requests from this IP, please try again later",
 });
-app.use(limiter);
 
+app.use(limiter);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -40,10 +40,6 @@ app.post("/initiateSTKPush", async (req, res) => {
       }
     );
     const authToken = tokenResponse.data.access_token;
-
-    console.log(phone);
-    console.log(amount);
-    console.log(userId);
 
     // Initiate STK push
     const response = await axios.post(

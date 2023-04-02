@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const axios = require("axios");
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
 const app = express();
 
@@ -15,9 +15,10 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
+//app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.post("/initiateSTKPush", async (req, res) => {
   try {

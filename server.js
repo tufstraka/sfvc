@@ -1,9 +1,18 @@
-require("dotenv").config();
+const dotenv = require("dotenv")
 const express = require("express");
 const axios = require("axios");
-
+const rateLimit = require("express-rate-limit");
 const app = express();
+
+dotenv.config()
 const port = process.env.PORT || 3000;
+
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 10, // limit each IP to 10 requests per 10 minutes
+  message: "Too many requests from this IP, please try again later",
+});
+app.use(limiter);
 
 app.use(express.json());
 
@@ -11,6 +20,7 @@ app.post("/initiateSTKPush", async (req, res) => {
   try {
     const userId = Math.floor(Math.random() * 1000000);
 
+    
     // Get authorization
     const tokenResponse = await axios.post(
       "https://api-omnichannel-uat.azure-api.net/v2.1/oauth/token",

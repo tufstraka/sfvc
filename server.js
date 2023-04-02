@@ -51,6 +51,7 @@ app.post("/initiateSTKPush", async (req, res) => {
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
         },
       }
     );

@@ -1,7 +1,6 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const axios = require("axios");
-//const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
 const app = express();
 
@@ -10,13 +9,11 @@ const port = process.env.PORT || 3000;
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 10, // limit each IP to 10 requests per 10 minutes
+  max: 14, // limit each IP to 14 requests per 10 minutes
   message: "Too many requests from this IP, please try again later",
 });
 
 app.use(limiter);
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -64,6 +61,8 @@ app.post("/initiateSTKPush", async (req, res) => {
 
     res.status(200).json({
       referenceNumber: `REF${userId}`,
+      phoneNumber: phone,
+      totalAmount; amount,
     });
   } catch (error) {
     console.error(error);

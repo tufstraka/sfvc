@@ -15,6 +15,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 app.post("/initiateSTKPush", async (req, res) => {
   try {

@@ -38,6 +38,7 @@ app.post("/initiateSTKPush", async (req, res) => {
 
     console.log(req.body.phone);
     console.log(req.body.totalAmount);
+    console.log(userId);
 
     // Initiate STK push
     const response = await axios.post(

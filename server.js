@@ -4,7 +4,7 @@ const axios = require("axios");
 const rateLimit = require("express-rate-limit");
 const app = express();
 
-dotenv.config()
+dotenv.config();
 const port = process.env.PORT || 3000;
 
 const limiter = rateLimit({
@@ -20,7 +20,6 @@ app.post("/initiateSTKPush", async (req, res) => {
   try {
     const userId = Math.floor(Math.random() * 1000000);
 
-    
     // Get authorization
     const tokenResponse = await axios.post(
       "https://api-omnichannel-uat.azure-api.net/v2.1/oauth/token",

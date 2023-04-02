@@ -45,7 +45,7 @@ app.post("/initiateSTKPush", async (req, res) => {
         amount: req.body.amount,
         telco: req.body.telco,
         countryCode: req.body.code,
-        callBackUrl: "https://domain.com/callback",
+        callBackUrl: "https://www.lnmb-run.org/payment/callback",
         errorCallBackUrl: "https://domain.com/callback/error",
       },
       {

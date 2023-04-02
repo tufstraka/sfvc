@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const axios = require("axios");
+const bodyParser = require('body-parser');
 const rateLimit = require("express-rate-limit");
 const app = express();
 
@@ -14,11 +15,14 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 app.post("/initiateSTKPush", async (req, res) => {
   try {
+    const phone = req.body.phone;
+    const amount = req.body.totalAmount;
     const userId = Math.floor(Math.random() * 1000000);
 
     // Get authorization
@@ -37,17 +41,17 @@ app.post("/initiateSTKPush", async (req, res) => {
     );
     const authToken = tokenResponse.data.access_token;
 
-    console.log(req.body.phone);
-    console.log(req.body.totalAmount);
+    console.log(phone);
+    console.log(amount);
     console.log(userId);
 
     // Initiate STK push
     const response = await axios.post(
       "https://api-omnichannel-uat.azure-api.net/v1/stkussdpush/stk/initiate",
       {
-        phoneNumber: req.body.phone,
+        phoneNumber: phone,
         reference: `REF${userId}`,
-        amount: req.body.totalAmount,
+        amount: amount,
         telco: "SAF",
         countryCode: "KE",
         callBackUrl: "https://www.lnmb-run.org/payment/callback",

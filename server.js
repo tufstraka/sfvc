@@ -2,10 +2,15 @@ const dotenv = require("dotenv");
 const express = require("express");
 const axios = require("axios");
 const rateLimit = require("express-rate-limit");
-const app = express();
+const mongoose = require("mongoose");
 
+
+const app = express();
 dotenv.config();
+
 const port = process.env.PORT || 3000;
+const mongoURI = process.env.MONGO_URI;
+
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
@@ -13,12 +18,37 @@ const limiter = rateLimit({
   message: "Too many requests from this IP, please try again later",
 });
 
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error(err));
+
+  const paymentSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    tshirtSize: String,
+    tshirtType: String,
+    pickup: String,
+    phoneNumber: String,
+    referenceNumber: String,
+    totalAmount: Number,
+  });
+
+  const Payment = mongoose.model("Payment", paymentSchema);
+
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.post("/initiateSTKPush", async (req, res) => {
   try {
+    const name = req.body.name;
+    const email = req.body.email;
+    const tshirtSize = req.body.tshirtSize;
+    const tshirtType = req.body.tshirtType;
     const phone = req.body.phone;
     const amount = req.body.totalAmount;
     const userId = Math.floor(Math.random() * 1000000);

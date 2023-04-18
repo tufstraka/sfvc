@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Payment from '../model/sales.js';
+import Sale from '../model/sales.js';
 
 export const initiateSTKPush = async (req, res) => {
   
@@ -53,15 +53,15 @@ export const initiateSTKPush = async (req, res) => {
     
     if ( stkPushResponse.status === 200 ) {
            
-            const payment = new Payment({
-                                          name,
-                                          email,
-                                          tshirtSize,
-                                          tshirtType,
-                                          pickup,
-                                          phoneNumber,
-                                          referenceNumber: `REF${userId}`,
-                                          totalAmount, });
+            const payment = new Sale({
+                                       name,
+                                       email,
+                                       tshirtSize,
+                                       tshirtType,
+                                       pickup,
+                                       phoneNumber,
+                                       referenceNumber: `REF${userId}`,
+                                       totalAmount, });
 
             const paymentDetails = await payment.save();
 

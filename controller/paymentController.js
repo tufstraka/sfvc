@@ -35,9 +35,9 @@ export const initiateSTKPush = async (req, res) => {
     const stkPushResponse = await axios.post(
       'https://api-omnichannel-uat.azure-api.net/v1/stkussdpush/stk/initiate',
       {
-        phoneNumber: phone,
+        phoneNumber: phoneNumber,
         reference: `REF${userId}`,
-        amount: amount,
+        amount: totalAmount,
         telco: 'SAF',
         countryCode: 'KE',
         callBackUrl: 'https://www.lnmb-run.org/payment/callback',
@@ -60,7 +60,7 @@ export const initiateSTKPush = async (req, res) => {
                                        tshirtType,
                                        pickup,
                                        phoneNumber,
-                                       referenceNumber: `REF${userId}`,
+                                       reference: `REF${userId}`,
                                        totalAmount, });
 
             const paymentDetails = await payment.save();

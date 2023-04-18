@@ -2,6 +2,7 @@ import axios from 'axios';
 import Payment from '../model/sales.js';
 
 export const initiateSTKPush = async (req, res) => {
+  
   try {
     const { name,  
             email, 
@@ -11,9 +12,9 @@ export const initiateSTKPush = async (req, res) => {
             phoneNumber, 
             totalAmount, } = req.body;
     
-    const userId = Math.floor(Math.random() * 1000000);
+    const userId = Math.floor(Math.random() * 10000000);
 
-    // Get authorization
+    
     const tokenResponse = await axios.post(
       'https://api-omnichannel-uat.azure-api.net/v2.1/oauth/token',
       {
@@ -30,8 +31,8 @@ export const initiateSTKPush = async (req, res) => {
 
     const authToken = tokenResponse.data.access_token;
 
-    // Initiate STK Push
-    const stkResponse = await axios.post(
+    
+    const stkPushResponse = await axios.post(
       'https://api-omnichannel-uat.azure-api.net/v1/stkussdpush/stk/initiate',
       {
         phoneNumber: phone,
@@ -49,21 +50,27 @@ export const initiateSTKPush = async (req, res) => {
         },
       }
     );
+    
+    if ( stkPushResponse.status === 200 ) {
+           
+            const payment = new Payment({
+                                          name,
+                                          email,
+                                          tshirtSize,
+                                          tshirtType,
+                                          pickup,
+                                          phoneNumber,
+                                          referenceNumber: `REF${userId}`,
+                                          totalAmount, });
 
-    //Save to database
-    const payment = new Payment({
-                                  name,
-                                  email,
-                                  tshirtSize,
-                                  tshirtType,
-                                  pickup,
-                                  phoneNumber,
-                                  referenceNumber: `REF${userId}`,
-                                  totalAmount, });
+            const paymentDetails = await payment.save();
 
-    const paymentDetails = await payment.save();
-
-    res.status(200).json(paymentDetails);
+            res.status(200).json(paymentDetails);
+    } else {
+      
+            res.status(500).json({ error: "Internal server error" })
+      
+    }
     
     } catch (error) {
       console.error(error);

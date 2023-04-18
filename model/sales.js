@@ -40,7 +40,8 @@ const salesData = new mongoose.Schema({
           type: Number,
           required: true,
         },
-});
+},
+     {timestamps: true} );
 
 const Sale = mongoose.model('Sales', salesData, 'tshirtSales');
 export default Sale;

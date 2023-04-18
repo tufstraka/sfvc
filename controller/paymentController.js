@@ -3,13 +3,14 @@ import Payment from '../model/sales.js';
 
 export const initiateSTKPush = async (req, res) => {
   try {
-    const name = req.body.name;
-    const email = req.body.email;
-    const tshirtSize = req.body.tshirtSize;
-    const tshirtType = req.body.tshirtType;
-    const pickup = req.body.pickup;
-    const phone = req.body.phone;
-    const amount = req.body.totalAmount;
+    const { name  
+            email 
+            tshirtSize
+            tshirtType 
+            pickup 
+            phoneNumber 
+            totalAmount } = req.body;
+    
     const userId = Math.floor(Math.random() * 1000000);
 
     // Get authorization
@@ -61,17 +62,10 @@ export const initiateSTKPush = async (req, res) => {
       totalAmount: amount,
     });
 
-    await payment.save();
+    const paymentDetails = await payment.save();
 
-    res.status(200).json({
-        name: name,
-        email: email,
-        tshirtSize: tshirtSize,
-        referenceNumber: `REF${userId}`,
-        phoneNumber: phone,
-        totalAmount: amount,
-        message: 'Payment initiated',
-      });
+    res.status(200).json(paymentDetails);
+    
     } catch (error) {
       console.error(error);
   

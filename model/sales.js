@@ -11,6 +11,6 @@ const salesData = new mongoose.Schema({
   totalAmount: Number,
 });
 
-const Payment = mongoose.model('Sales', salesData, 'tshirtSales');
-export default Payment;
+const Sale = mongoose.model('Sales', salesData, 'tshirtSales');
+export default Sale;
 

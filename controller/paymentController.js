@@ -3,13 +3,13 @@ import Payment from '../model/sales.js';
 
 export const initiateSTKPush = async (req, res) => {
   try {
-    const { name  
-            email 
-            tshirtSize
-            tshirtType 
-            pickup 
-            phoneNumber 
-            totalAmount } = req.body;
+    const { name,  
+            email, 
+            tshirtSize,
+            tshirtType, 
+            pickup, 
+            phoneNumber, 
+            totalAmount, } = req.body;
     
     const userId = Math.floor(Math.random() * 1000000);
 
@@ -52,15 +52,14 @@ export const initiateSTKPush = async (req, res) => {
 
     //Save to database
     const payment = new Payment({
-      name: name,
-      email: email,
-      tshirtSize: tshirtSize,
-      tshirtType: tshirtType,
-      pickup: pickup,
-      phoneNumber: phone,
-      referenceNumber: `REF${userId}`,
-      totalAmount: amount,
-    });
+                                  name,
+                                  email,
+                                  tshirtSize,
+                                  tshirtType,
+                                  pickup,
+                                  phoneNumber,
+                                  referenceNumber: `REF${userId}`,
+                                  totalAmount, });
 
     const paymentDetails = await payment.save();
 

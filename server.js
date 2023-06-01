@@ -11,12 +11,6 @@ dotenv.config();
 const port = process.env.PORT || 3000;
 const mongoURI = process.env.MONGO_URI;
 
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 14, // limit each IP to 14 requests per 10 minutes
-  message: 'Too many requests from this IP, please try again later',
-});
-
 mongoose
   .connect(mongoURI, {
     useNewUrlParser: true,

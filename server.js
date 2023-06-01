@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import rateLimit from 'express-rate-limit';
 import payment from './routes/payment.js';
 import mongoose from 'mongoose';
 
@@ -19,7 +18,6 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error(err));
 
-app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

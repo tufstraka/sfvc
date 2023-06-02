@@ -50,7 +50,7 @@ export const initiateSTKPush = async (req, res) => {
       }
     );
 
-    if (stkPushResponse.status === 200) {
+    if (stkPushResponse.status === 202) {
       const payment = new Sale({
         name,
         email,

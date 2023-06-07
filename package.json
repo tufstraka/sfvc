@@ -1,7 +1,7 @@
 {
-  "name": "stkpush",
+  "name": "Eqstkpush",
   "version": "1.0.0",
-  "description": "STK Push API",
+  "description": "STK Push API (Equity Bank) for leave no medic behind initiative charity run",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

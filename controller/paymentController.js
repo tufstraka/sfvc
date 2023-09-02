@@ -51,11 +51,11 @@ export const initiateSTKPush = async (req, res) => {
 
       res.status(202).json(paymentDetails);
     } else {
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Payment initiation failed. Please try again later." });
     }
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error. Please contact support." });
   }
 };

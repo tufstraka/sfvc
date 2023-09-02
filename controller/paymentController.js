@@ -49,7 +49,7 @@ export const initiateSTKPush = async (req, res) => {
 
       const paymentDetails = await payment.save();
 
-      res.status(200).json(paymentDetails);
+      res.status(202).json(paymentDetails);
     } else {
       res.status(500).json({ error: "Internal server error" });
     }
